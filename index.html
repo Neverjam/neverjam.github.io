@@ -1,0 +1,81 @@
+﻿<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>oh hello</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="words-bg" aria-hidden="true"></div>
+    <main>
+      <script async src="https://eomail5.com/form/d2028f7a-4241-11f1-b9a8-db831ce0d67c.js" data-form="d2028f7a-4241-11f1-b9a8-db831ce0d67c"></script>
+      <p class="privacy-link"><a href="privacy.html">Privacy Policy</a></p>
+    </main>
+
+    <script>
+      // Bouncing words
+      const words = ['over X years of experience','subscribe','please','vibes',"doesn't cost a cup of coffee",
+      'you need it','fresh','guaranteed','subscribe','please','no spam','not limited time offer','abracadabra'
+      ,'unprecedented','you deserve it','it is the future','please','trusted by people','sorry?','world-class'];
+      const container = document.getElementById('words-bg');
+
+      // Add logos as bouncing elements — add more filenames to the array as needed
+      const logoFiles = ['logo.png', 'rv2.png'];
+      const logoItems = logoFiles.map(src => {
+        const el = document.createElement('img');
+        el.src = src;
+        el.className = 'floating-logo';
+        container.appendChild(el);
+        return {
+          el,
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 1.2,
+          vy: (Math.random() - 0.5) * 1.2,
+          rot: Math.random() * 360,
+          vr: (Math.random() - 0.5) * 0.75,
+        };
+      });
+
+      const items = words.map(word => {
+        const el = document.createElement('span');
+        el.textContent = word;
+        el.className = 'floating-word';
+        el.style.color = Math.random() < 0.5 ? '#000' : '#000';
+        container.appendChild(el);
+        return {
+          el,
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          rot: Math.random() * 360,
+          vr: (Math.random() - 0.5) * 0.75,
+        };
+      });
+      function tick() {
+        const W = window.innerWidth, H = window.innerHeight;
+        for (const p of [...items, ...logoItems]) {
+          p.x += p.vx; p.y += p.vy;
+          const w = p.el.offsetWidth  || 80;
+          const h = p.el.offsetHeight || 20;
+          if (p.x < 0)     { p.x = 0;     p.vx *= -1; }
+          if (p.x + w > W) { p.x = W - w; p.vx *= -1; }
+          if (p.y < 0)     { p.y = 0;     p.vy *= -1; }
+          if (p.y + h > H) { p.y = H - h; p.vy *= -1; }
+          p.el.style.left = p.x + 'px';
+          p.el.style.top  = p.y + 'px';
+          if (p.vr !== undefined) {
+            p.rot += p.vr;
+            p.el.style.transform = `rotate(${p.rot}deg)`;
+          }
+        }
+        requestAnimationFrame(tick);
+      }
+      setTimeout(() => requestAnimationFrame(tick), 100);
+    </script>
+  </body>
+</html>
+
+
