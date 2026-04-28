@@ -72,8 +72,8 @@ main {
 
 .privacy-link {
   font-size: 1.2rem;
-  color: #eeffff;
-  opacity: 1;
+  color: #000;
+  opacity: 0.8;
 }
 
 .privacy-link a {
